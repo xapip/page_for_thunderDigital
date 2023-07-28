@@ -43,9 +43,13 @@ function App() {
         <PageTitle />
         <section>
           <h2 className="text-2xl font-bold">Latest Post</h2>
-          <div className="grid grid-flow-row justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 my-[32px] ">
+          <div
+            className={`grid grid-flow-row justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 my-[32px] ${
+              loading ? "h-[160px]" : ""
+            }`}
+          >
             {loading ? (
-              <div className="relative left-1/2 top-1/2 transform translate-x-[-50%]">
+              <div className="absolute right-1/2 bottom-1/2 transform translate-x-1/2">
                 <div className="border-t-transparent border-solid animate-spin  rounded-full border-blue-400 border-8 h-24 w-24"></div>
               </div>
             ) : (
