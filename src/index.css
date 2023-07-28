@@ -4,3 +4,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.more-link{
+  color: #4B6BFB;
+}
+
+.more-link:hover{
+  color: #8ea2fc;
+}
+
+.screen-reader-text{
+  position: absolute;
+  width: 0;
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+}

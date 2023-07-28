@@ -8,7 +8,7 @@ export default function Header() {
   const [darkTheme, setDarkTheme] = React.useState(true);
 
   return (
-    <div className="container mx-auto flex justify-between items-center py-8">
+    <div className="container mx-auto px-[5px] flex justify-between items-center py-8">
       {/* logo */}
       <Logo inFooter={false} />
 

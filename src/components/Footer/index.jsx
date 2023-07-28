@@ -8,7 +8,7 @@ import { quickLink, category, linksPolicy } from "../../data/links";
 export default function Footer() {
   return (
     <footer className="pt-[64px] bg-[#141624] border-t border-t-[#242535]">
-      <div className="container mx-auto">
+      <div className="container mx-auto px-[5px]">
         <div className="flex justify-between">
           <section>
             <h3 className="text-lg font-semibold mb-[12px]">About</h3>
@@ -81,7 +81,7 @@ export default function Footer() {
                   />
                 </svg>
               </div>
-              <Button bg={"1"} padding={"lg"} widthFull={true}>
+              <Button>
                 <span className="text-base font-medium">Subscribe</span>
               </Button>
             </form>

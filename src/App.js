@@ -7,22 +7,54 @@ import Footer from "./components/Footer";
 
 import "./index.css";
 
+const myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+const graphql = JSON.stringify({
+  query:
+    "{\r\n  posts {\r\n    nodes {\r\n      author {\r\n        node {\r\n          email\r\n          username\r\n        }\r\n      }\r\n      dateGmt\r\n      slug\r\n      seo {\r\n        canonicalUrl\r\n        description\r\n      }\r\n      excerpt\r\n    }\r\n  }\r\n}",
+  variables: {},
+});
+const requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: graphql,
+  redirect: "follow",
+};
+
 function App() {
+  const [collectionPosts, setCollectionPosts] = React.useState("");
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    setLoading(true);
+
+    fetch("http://betadmin-st.ru/ivoire-bets/graphql", requestOptions)
+      .then((res) => res.json())
+      .then((result) => setCollectionPosts(Array.from(result.data.posts.nodes)))
+      .catch((error) => console.log("error", error))
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
     <div className="min-h-screen h-full bg-[#181a2a] text-white font-body not-italic font-normal">
       <Header />
-      <main className="container mx-auto mt-[24px]">
+      <main className="container mx-auto px-[5px] mt-[24px]">
         <PageTitle />
-        <div className="my-[48px]">
-          <Card size={"lg"} />
-        </div>
         <section>
           <h2 className="text-2xl font-bold">Latest Post</h2>
-          <div className="flex flex-wrap justify-center xl:justify-between gap-5 my-[32px]">
-            <Card size={"sm"} />
-            <Card size={"sm"} />
-            <Card size={"sm"} />
-            <Card size={"sm"} />
+          <div className="grid grid-flow-row justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 my-[32px] ">
+            {loading ? (
+              <div className="relative left-1/2 top-1/2 transform translate-x-[-50%]">
+                <div className="border-t-transparent border-solid animate-spin  rounded-full border-blue-400 border-8 h-24 w-24"></div>
+              </div>
+            ) : (
+              collectionPosts.map((post) => (
+                <React.Fragment key={post.slug}>
+                  <Card post={post} />
+                </React.Fragment>
+              ))
+            )}
           </div>
           <div className="flex justify-center font-medium  mx-auto h-auto">
             <a
